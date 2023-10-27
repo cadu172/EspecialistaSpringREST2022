@@ -1,0 +1,4 @@
+02 Spring e Injeção de Dependências
+
+ESR - 02.12 - Injetando dependências (beans Spring)
+Podemos fazer a injeção de dependencias de forma automática convertendo nossas classes em “Beans” com a “anotação” @Component, quando incluímos esta anotação o Spring faz a carga de forma automática no start da aplicação e já executa seu construtor.

@@ -1,5 +1,7 @@
 package com.algaworks.algafood.di.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,7 @@ public class AtivacaoClienteService {
 	 * Caso seja definido como true é obrigatório que um Bean deste tipo seja carregado no IoC Container
 	 * */
 	@Autowired(required = true)
-	private InterfaceNotificador notificao;
+	private List<InterfaceNotificador> notificoes;
 	
 	
 	/*
@@ -35,11 +37,15 @@ public class AtivacaoClienteService {
 		
 		cliente.ativar();
 		
-		if ( notificao == null ) {
+		if ( notificoes == null ) {
 			System.out.println("Cliente ativado, porém não foi notificado da ativação");
 		}
 		else {
-			notificao.notificar(cliente, "Cliente ativado");
+			
+			for (InterfaceNotificador notificador : notificoes) {
+				notificador.notificar(cliente, "Cliente ativado");
+			}		
+			
 		}
 		
 	}

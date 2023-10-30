@@ -1,8 +1,7 @@
 package com.algaworks.algafood.di.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.di.modelo.Cliente;
@@ -15,6 +14,7 @@ public class AtivacaoClienteService {
 	 * Podemos incluir uma parâmetro "required em @Autowired", desta forma dizemos ao Spring se ele é obrigatório ou não, o valor padrão é true
 	 * Caso seja definido como true é obrigatório que um Bean deste tipo seja carregado no IoC Container
 	 * */
+	@Qualifier("notificacao.urgente")
 	@Autowired(required = true)
 	private InterfaceNotificador notificador;
 	

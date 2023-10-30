@@ -14,10 +14,9 @@ public class ServiceConfig {
 	 * */
 
     //@Bean
-    AtivacaoClienteService ativacaoClienteService(InterfaceNotificador notificador) {
+    /*AtivacaoClienteService ativacaoClienteService(InterfaceNotificador notificador) {    	
+    	return new AtivacaoClienteService(notificador);
     	
-    	return new AtivacaoClienteService(notificador);	
-    	
-    }	
+    }*/	
 	
 }

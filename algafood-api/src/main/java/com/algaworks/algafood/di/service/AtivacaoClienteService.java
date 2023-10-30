@@ -16,7 +16,7 @@ public class AtivacaoClienteService {
 	 * Caso seja definido como true é obrigatório que um Bean deste tipo seja carregado no IoC Container
 	 * */
 	@Autowired(required = true)
-	private List<InterfaceNotificador> notificoes;
+	private InterfaceNotificador notificador;
 	
 	
 	/*
@@ -37,14 +37,12 @@ public class AtivacaoClienteService {
 		
 		cliente.ativar();
 		
-		if ( notificoes == null ) {
+		if ( notificador == null ) {
 			System.out.println("Cliente ativado, porém não foi notificado da ativação");
 		}
-		else {
-			
-			for (InterfaceNotificador notificador : notificoes) {
-				notificador.notificar(cliente, "Cliente ativado");
-			}		
+		else {			
+	
+			notificador.notificar(cliente, "Cliente ativado");
 			
 		}
 		

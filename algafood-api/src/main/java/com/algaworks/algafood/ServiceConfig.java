@@ -1,12 +1,9 @@
 package com.algaworks.algafood;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.algaworks.algafood.di.notificacao.InterfaceNotificador;
 import com.algaworks.algafood.di.service.AtivacaoClienteService;
 
-@Configuration
+//@Configuration
 public class ServiceConfig {
 	
 	/*
@@ -16,7 +13,7 @@ public class ServiceConfig {
 	 * forma automática. Então a classe AtivacaoClienteService torna-se um Bean sem ter a necessidade de usar o @Component e fica "Desacoplada"
 	 * */
 
-    @Bean
+    //@Bean
     AtivacaoClienteService ativacaoClienteService(InterfaceNotificador notificador) {
     	
     	return new AtivacaoClienteService(notificador);	

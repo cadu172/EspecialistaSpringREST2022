@@ -1,11 +1,6 @@
 package com.algaworks.algafood;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import com.algaworks.algafood.di.notificacao.NotificadorEmail;
-
-@Configuration
+//@Configuration
 public class NotificacaoConfig {
 	
 	/*
@@ -15,14 +10,14 @@ public class NotificacaoConfig {
 	 * Fiz um teste copiando o método notificadorEmail() com outro nome e a app quebrou
 	 * */
 
-    @Bean
-    NotificadorEmail notificadorEmail() {
+    //@Bean
+    /*NotificadorEmail notificadorEmail() {
 		
 		NotificadorEmail notificador = new NotificadorEmail("smtp.goole.com");
 		notificador.setUpperCase(true);
 		
 		return notificador;
 		
-	}	
+	}*/	
 
 }

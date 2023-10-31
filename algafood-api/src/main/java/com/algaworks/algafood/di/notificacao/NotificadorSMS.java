@@ -1,7 +1,5 @@
 package com.algaworks.algafood.di.notificacao;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.di.modelo.Cliente;
@@ -24,8 +22,16 @@ import com.algaworks.algafood.di.modelo.Cliente;
  * com isso o Spring Injeta nesta classe o Bean NotificadorSMS que foi o Bean com aplidado de urgente.
  * */
 
+
+/*
+ * É possível criar um tipo de Qualifier customizado, desta podemos usar as chamadas aos Qualifier de uma forma mas elegante, por exemplo
+ * podemos passar como parametro um ENUM com o tipo de Qualifier ao inves de usarmos uma String
+ * 
+ * */
+
 //@Primary
-@Qualifier("notificacao.normal")
+//@Qualifier("notificacao.normal")
+@TipoDoNotificador(NivelPrioridade.URGENTE)
 @Component
 public class NotificadorSMS implements InterfaceNotificador {
 	

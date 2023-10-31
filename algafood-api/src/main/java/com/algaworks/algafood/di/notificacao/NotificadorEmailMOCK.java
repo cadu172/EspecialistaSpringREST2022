@@ -8,7 +8,7 @@ import com.algaworks.algafood.di.modelo.Cliente;
 //@Primary
 //@Qualifier("notificacao.urgente")
 @Profile("dev")
-@TipoDoNotificador(NivelPrioridade.NORMAL)
+@TipoDoNotificador(NivelPrioridade.SEM_URGENCIA)
 @Component
 public class NotificadorEmailMOCK implements InterfaceNotificador {
 	

@@ -7,19 +7,19 @@ import com.algaworks.algafood.di.modelo.Cliente;
 
 //@Primary
 //@Qualifier("notificacao.urgente")
-@Profile("prod")
+@Profile("dev")
 @TipoDoNotificador(NivelPrioridade.NORMAL)
 @Component
-public class NotificadorEmail implements InterfaceNotificador {
+public class NotificadorEmailMOCK implements InterfaceNotificador {
 	
-	public NotificadorEmail() {
-		System.out.println("NotificadorEmail");
+	public NotificadorEmailMOCK() {
+		System.out.println("NotificadorEmailMOCK");
 	}
 	
 	@Override
 	public void notificar(Cliente cliente, String mensagem) {
 		
-		System.out.println("PRODUCAO ----- Cliente " + cliente.getNome() +
+		System.out.println("MOCK ----- Cliente " + cliente.getNome() +
 					" notificado por EMAIL atraves do endereço " + cliente.getEmail() +
 					" - Mensagem : " + mensagem );
 	}

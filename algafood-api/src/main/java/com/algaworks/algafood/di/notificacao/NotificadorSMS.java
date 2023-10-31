@@ -1,5 +1,6 @@
 package com.algaworks.algafood.di.notificacao;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.di.modelo.Cliente;
@@ -29,8 +30,27 @@ import com.algaworks.algafood.di.modelo.Cliente;
  * 
  * */
 
+/*
+ * @Profile podemos criar perfis que serão usados para carregar os Beans de acordo com o ambiente que queremos,
+ * por exemplo, podemos criar uma classe MOCK que somente simula o envio de um e-mail mas não faz de fato, somente para teste,
+ * exemplo:  @Profile("dev")
+ * 
+ * para ativar o perfil desejado vá no arquivo 
+ * application.properties
+ * 
+ * incluir a seguinte linha: 
+ * 
+ * spring.profiles.active=dev
+ * 
+ * você pode definir vários profiles ativos, exemplo:
+ * 
+ * pring.profiles.active=dev,mysql,redis,oauth2
+ * 
+ * */
+
 //@Primary
 //@Qualifier("notificacao.normal")
+@Profile("prod")
 @TipoDoNotificador(NivelPrioridade.URGENTE)
 @Component
 public class NotificadorSMS implements InterfaceNotificador {

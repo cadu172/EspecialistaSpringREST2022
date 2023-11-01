@@ -1,18 +1,17 @@
 package com.algaworks.algafood.di.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.di.modelo.Cliente;
-import com.algaworks.algafood.di.notificacao.InterfaceNotificador;
-import com.algaworks.algafood.di.notificacao.NivelPrioridade;
-import com.algaworks.algafood.di.notificacao.TipoDoNotificador;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-
-//@Component
+@Component
 public class AtivacaoClienteService {
 	//implements InitializingBean, DisposableBean {
+	
+	@Autowired
+	private ApplicationEventPublisher eventPublisher;
 	
 	/*
 	 * Podemos incluir uma parâmetro "required em @Autowired", desta forma dizemos ao Spring se ele é obrigatório ou não, 
@@ -20,9 +19,9 @@ public class AtivacaoClienteService {
 	 * Caso seja definido como true é obrigatório que um Bean deste tipo seja carregado no IoC Container
 	 * */
 	//@Qualifier("notificacao.urgente")
-	@TipoDoNotificador(NivelPrioridade.SEM_URGENCIA)
+	/*@TipoDoNotificador(NivelPrioridade.SEM_URGENCIA)
 	@Autowired(required = true)
-	private InterfaceNotificador notificador;
+	private InterfaceNotificador notificador;*/
 	
 	
 	/*
@@ -42,14 +41,14 @@ public class AtivacaoClienteService {
 		
 		cliente.ativar();
 		
-		if ( notificador == null ) {
+		eventPublisher.publishEvent(new ClienteAtivadoEvent(cliente));
+		
+		/*if ( notificador == null ) {
 			System.out.println("Cliente ativado, porém não foi notificado da ativação");
 		}
-		else {			
-	
-			notificador.notificar(cliente, "Cliente ativado");
-			
-		}
+		else {
+			notificador.notificar(cliente, "Cliente ativado");		
+		}*/
 		
 	}
 
@@ -58,7 +57,7 @@ public class AtivacaoClienteService {
 		this.notificao = notificao;
 	}*/
 	
-	@PostConstruct
+	/*@PostConstruct
 	public void init() {
 		System.out.println("AtivacaoClienteService -> INIT Called");
 	}
@@ -66,7 +65,7 @@ public class AtivacaoClienteService {
 	@PreDestroy
 	public void destroy() {
 		System.out.println("AtivacaoClienteService -> DESTROY Called");
-	}
+	}*/
 
 	/*@Override
 	public void afterPropertiesSet() throws Exception {		

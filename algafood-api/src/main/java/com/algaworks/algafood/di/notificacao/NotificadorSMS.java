@@ -52,7 +52,7 @@ import com.algaworks.algafood.di.modelo.Cliente;
 
 //@Primary
 //@Qualifier("notificacao.normal")
-@Profile("prod")
+//@Profile("prod")
 @TipoDoNotificador(NivelPrioridade.URGENTE)
 @Component
 public class NotificadorSMS implements InterfaceNotificador {

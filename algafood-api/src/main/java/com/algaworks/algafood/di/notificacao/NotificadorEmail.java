@@ -9,7 +9,7 @@ import com.algaworks.algafood.di.modelo.Cliente;
 
 //@Primary
 //@Qualifier("notificacao.urgente")
-@Profile("prod")
+//@Profile("prod")
 @TipoDoNotificador(NivelPrioridade.SEM_URGENCIA)
 @Component
 public class NotificadorEmail implements InterfaceNotificador {

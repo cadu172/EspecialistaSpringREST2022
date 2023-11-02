@@ -1,5 +1,6 @@
 package com.algaworks.algafood.di.notificacao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -21,21 +22,21 @@ public class NotificadorEmail implements InterfaceNotificador {
 	 * 
 	 * */
 	
-	@Value("${notificador.email.smtp-server}")
+	/*@Value("${notificador.email.smtp-server}")
 	private String smtpServer;
 	
 	@Value("${notificador.email.smtp-port}")
-	private Integer smtpServerPort;
+	private Integer smtpServerPort;*/
 	
-	public NotificadorEmail() {
-		System.out.println("NotificadorEmail");
-	}
+	@Autowired
+	NotificadorProperties properties;
 	
+
 	@Override
 	public void notificar(Cliente cliente, String mensagem) {
 		
-		System.out.println("SMTP-SERVER: " + this.smtpServer);
-		System.out.println("SMTP-PORT: " + this.smtpServerPort);
+		System.out.println("SMTP-SERVER: " + properties.getSmtpServer());
+		System.out.println("SMTP-PORT: " + properties.getSmtpServerPort());
 		
 		System.out.println("PRODUCAO ----- Cliente " + cliente.getNome() +
 					" notificado por EMAIL atraves do endereço " + cliente.getEmail() +

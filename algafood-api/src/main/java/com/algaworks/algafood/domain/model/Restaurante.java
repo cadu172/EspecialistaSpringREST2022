@@ -5,22 +5,23 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "tab_restaurante")
 public class Restaurante {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(name = "nome")
 	private String nome;
 	
 	@Column(name="taxa_frete")
-	private BigDecimal taxFrete;
+	private BigDecimal taxaFrete;
 
 	public Long getId() {
 		return id;
@@ -38,12 +39,13 @@ public class Restaurante {
 		this.nome = nome;
 	}
 
-	public BigDecimal getTaxFrete() {
-		return taxFrete;
+	
+	public BigDecimal getTaxaFrete() {
+		return taxaFrete;
 	}
 
-	public void setTaxFrete(BigDecimal taxFrete) {
-		this.taxFrete = taxFrete;
+	public void setTaxaFrete(BigDecimal taxaFrete) {
+		this.taxaFrete = taxaFrete;
 	}
 
 	@Override

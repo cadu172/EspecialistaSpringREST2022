@@ -8,6 +8,7 @@ import com.algaworks.algafood.domain.model.Cozinha;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 @Component
 public class CadastroCozinha {
@@ -19,6 +20,11 @@ public class CadastroCozinha {
 		
 		return manager.createQuery("from Cozinha", Cozinha.class).getResultList();
 		
+	}
+	
+	@Transactional
+	public Cozinha adicionar(Cozinha cozinha) {
+		return manager.merge(cozinha);
 	}
 
 }

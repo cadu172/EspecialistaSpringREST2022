@@ -10,7 +10,7 @@ import com.algaworks.algafood.AlgafoodApiApplication;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 
-public class CadastroCozinhaMain {
+public class ListarCozinhaMain {
 	
 	public static void main(String[] args) {
 		

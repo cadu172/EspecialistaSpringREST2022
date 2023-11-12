@@ -29,7 +29,8 @@ public class ListarRestauranteMain {
 		for(Restaurante restaurante : restaurantes) {
 			System.out.println("ID: " + restaurante.getId() +
 					" | NOME: " + restaurante.getNome() +
-					" | TAXA DE FRETE: " + String.format("%.2f", restaurante.getTaxaFrete()));
+					" | TAXA DE FRETE: " + String.format("%.2f", restaurante.getTaxaFrete()) + 
+					" | COZINHA: " + restaurante.getCozinha().getNome());
 		}
 		
 	}

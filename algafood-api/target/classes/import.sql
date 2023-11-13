@@ -1,8 +1,18 @@
+INSERT INTO permissao (id, descricao, nome) VALUES(1, 'Usuario com permissao de administrador', 'ADMIN');
+INSERT INTO permissao (id, descricao, nome) VALUES(2, 'Permite incluir um pedido', 'OPERACAO');
+INSERT INTO permissao (id, descricao, nome) VALUES(3, 'Permite o estorno de uma venda', 'SUPERVISAO');
+
 INSERT INTO algafood.estado (id, nome) VALUES(1, 'SP');
 INSERT INTO algafood.estado (id, nome) VALUES(2, 'RJ');
 INSERT INTO algafood.estado (id, nome) VALUES(3, 'CE');
 INSERT INTO algafood.estado (id, nome) VALUES(4, 'RS');
 INSERT INTO algafood.estado (id, nome) VALUES(5, 'MG');
+
+INSERT INTO cidade (estado_id, nome) VALUES(1, 'São Paulo');
+INSERT INTO cidade (estado_id, nome) VALUES(2, 'Angra dos Reis');
+INSERT INTO cidade (estado_id, nome) VALUES(3, 'Fortaleza');
+INSERT INTO cidade (estado_id, nome) VALUES(4, 'Alvorada');
+INSERT INTO cidade (estado_id, nome) VALUES(5, 'Belo Horizonte');
 
 INSERT INTO algafood.forma_pagamento (id, descricao) VALUES(1, 'DINHEIRO');
 INSERT INTO algafood.forma_pagamento (id, descricao) VALUES(2, 'PIX');
@@ -14,7 +24,6 @@ INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id, forma_pagame
 
 INSERT INTO cozinha (id,nome) VALUES (2,'Portuguesa');
 INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id, forma_pagamento_id) VALUES(2, 23.45, 'Alfama dos Marinheiros',2, 2);
-
 
 INSERT INTO cozinha (id,nome) VALUES (3,'Tailandesa');
 INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id, forma_pagamento_id) VALUES(3, 40.00, 'Hub Food & Art Lounge',3, 1);

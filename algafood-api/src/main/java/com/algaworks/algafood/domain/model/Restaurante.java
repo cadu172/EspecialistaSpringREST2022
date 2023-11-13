@@ -22,14 +22,14 @@ public class Restaurante {
 	@EqualsAndHashCode.Include
 	private Long id;
 	
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
 	
-	@Column(name="taxa_frete")
+	@Column(name="taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 	
 	@ManyToOne
-	@JoinColumn(name = "cozinha_id") // anotação usada para definir qual a coluna da Entity restaurante deve ser a Foreign Key da tabela Cozinha
+	@JoinColumn(name = "cozinha_id", nullable = false) // anotação usada para definir qual a coluna da Entity restaurante deve ser a Foreign Key da tabela Cozinha
 	private Cozinha cozinha;
 	
 }

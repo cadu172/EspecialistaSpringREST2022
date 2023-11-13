@@ -32,4 +32,13 @@ public class Restaurante {
 	@JoinColumn(name = "cozinha_id", nullable = false) // anotação usada para definir qual a coluna da Entity restaurante deve ser a Foreign Key da tabela Cozinha
 	private Cozinha cozinha;
 	
+	/*
+	 * estou deixando este relacionamento em Muitos Restaurantes aceitam a forma de pagamento "X" porém por regra isso vai definir que o restaurante
+	 * vai aceitar somente uma forma de pagamento porque será criada uma coluna na tabela restaurante com a forma de pagemento.
+	 * O Certo neste caso seria construir uma Entity auxiliar que possa guardar o relacionamento N para N ou seja, um Restaurante pode aceitar "Uma ou Várias" formas
+	 * de pagamento como "Uma forma de pagamento pode estar presente em muitos Restaurantes"*/
+	@ManyToOne
+	@JoinColumn(name = "forma_pagamento_id", nullable = false)
+	private FormaPagamento formaPagamento;
+	
 }

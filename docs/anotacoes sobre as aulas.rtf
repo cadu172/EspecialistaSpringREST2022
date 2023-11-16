@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\froman\fprq2\fcharset0 Calibri;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}}
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\froman\fprq2\fcharset0 Calibri;}{\f1\froman\fprq2\fcharset0 Liberation Serif;}{\f2\fnil\fcharset0 Calibri;}}
 {\colortbl ;\red255\green0\blue0;\red255\green255\blue0;}
 {\*\generator Riched20 10.0.22000}\viewkind4\uc1 
 \pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1\qj\kerning1\b\f0\fs36\lang1046 03 Introdu\'e7\'e3o ao JPA e Hibernate\par
@@ -54,6 +54,32 @@ REST n\'e3o \'e9 um software \'e9 um padr\'e3o, para que as "API" sejam consider
 \b C\'f3digo sob demanda\b0  - Pouco usado... a API retorna c\'f3digos que podem ser executados por um cliente que est\'e1 consumindo a API, tipo um Javascript (por exemplo).\par
 \par
 \b\fs28 ESR - 04.10 - Modelando e requisitando um collection resource com GET\par
-\b0\fs24 Nesta aula implementamos uma funcionalidade na API para listar as cozinhas usando as anota\'e7\'f5es @RestController @GetMapping e nos permitiu listar as cozinhas usando o m\'e9todo GET\b\fs28\par
+\b0\fs24 Nesta aula implementamos uma funcionalidade na API para listar as cozinhas usando as anota\'e7\'f5es @RestController, \kerning0\f2 @RequestMapping("/cozinhas"),\kerning1  \f0 @GetMapping e nos permitiu listar as cozinhas usando o m\'e9todo GET\par
+\par
+\b\fs28 ESR - 04.11 - Desafio - collection resource de estados\par
+\b0\fs24 Desafio conclu\'eddo\par
+\par
+\b\fs28 ESR - 04.12 - Representa\'e7\'f5es de recursos e content negotiation\par
+\b0\fs24\'c9 poss\'edvel negociar com o servidor como o recurso deve ser retornado, os retornos mais usados s\'e3o JSON e XML, basta informar em "Accept" como que o conte\'fado deve ser retornado e se o servidor possibilitar a megocia\'e7\'e3o ele retorna conforme negociado.\par
+\par
+\b\fs28 ESR - 04.13 - Implementando content negotiation para retornar JSON ou XML\par
+\b0\fs24 Nesta aula aprendi que \'e9 poss\'edvel retornar para o cliente o formato JSON ou XML de acordo com a solicita\'e7\'e3o no cabe\'e7alho Accept, se o cliente colocar como "application/json" o servidor retorna o conteudo como JSON, caso informe "application/xml" ser\'e1 o retornado o mesmo conteudo como XML.\par
+Para isso \'e9 obrigat\'f3rio incluir no "pom.xml" a seguinte dependencia:\par
+\cf1 <dependency><groupId>com.fasterxml.jackson.dataformat</groupId><artifactId>jackson-dataformat-xml</artifactId></dependency>\cf0\par
+O Maven vai baixar os pacotes necess\'e1rios.\par
+Para formatar a sa\'edda do m\'e9todo basta incluir um par\'e2metro no verbo da seguinte forma:\par
+@GetMapping(\cf1\b produces = MediaType.APPLICATION_JSON_VALUE\cf0\b0 )\par
+public List<Cozinha> listarJSON() \{\par
+\tab System.out.println("listarJSON");\par
+\tab return cozinhaRepository.listar();\par
+\}\par
+No exemplo acima o sistema vai retornar um JSON de cozinhas, caso queira retornar um XML basta alterar para:\par
+@GetMapping(\cf1\b produces = MediaType.APPLICATION_XML_VALUE\cf0\b0 )\par
+Caso voc\'ea queira deixar padr\'e3o no "Resource Inteiro" basta alterar a seguinte linha:\par
+
+\pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1 @RequestMapping(value= "/cozinhas",produces = MediaType.APPLICATION_XML_VALUE)\par
+No caso acima todos os m\'e9todos retornar\'e3o um "XML"\par
+
+\pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1\qj\b\fs28\par
 }
  

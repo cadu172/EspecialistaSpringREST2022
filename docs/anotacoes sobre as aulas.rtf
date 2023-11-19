@@ -67232,14 +67232,23 @@ dbffffffffffffdcffff24bac924ba7524ba75aaba75ffffe9ffffffffffff24e5e924ba7524ba
 \pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1\b\fs28\par
 ESR - 04.17 - Conhecendo os m\'e9todos HTTP\par
 
-\pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1\qj\fs24 GET\b0 : Usado para realizar a consulta de um recurso, GET \'e9 um m\'e9todo "SEGURO" porque n\'e3o gera "efeito colateral", \ul\i GET \'e9 um recurso Idempotente\ulnone\i0  porque n\'e3o modifica o estado da aplica\'e7\'e3o ap\'f3s sua execu\'e7\'e3o.\par
+\pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1\qj\fs24 Conceito de Idempotencia\par
+\b0\'c9 quando executamos um m\'e9todo duas ou mais vezes e ele n\'e3o altera o estado sistema.\par
+Conceito de n\'e3o seguro \'e9 quando executamos um m\'e9todo uma ou mais vezes e a cada execu\'e7\'e3o o estado do sistema \'e9 alterado.\b\par
+GET\b0 : Usado para realizar a consulta de um recurso, GET \'e9 um m\'e9todo "SEGURO" porque n\'e3o gera "efeito colateral", \ul\i GET \'e9 um recurso Idempotente\ulnone\i0  porque n\'e3o modifica o estado da aplica\'e7\'e3o ap\'f3s sua execu\'e7\'e3o.\par
 \b POST\b0 : \ul\i N\'e3o \'e9 seguro\ulnone\i0  porque a sua execu\'e7\'e3o gera um novo recurso e modifica o estado da aplica\'e7\'e3o, como ele altera o conte\'fado ele \ul\i n\'e3o \'e9 idempotente\ulnone\i0 , o m\'e9todo POST \'e9 usado quando \'e9 desejado gerar um novo recurso no sistema, como por exemplo a inclus\'e3o de um cliente novo.\par
 \b PUT\b0 : Executa a atualiza\'e7\'e3o de um recurso existente, um detalhe no m\'e9todo PUT \'e9 que ao atualizar um recurso voc\'ea precisa passar os dados por completo, a omiss\'e3o de algum campo pode gerar inconsistencia porque ser\'e1 gravado como NULL os campos n\'e3o informados. PUT pode ser usado tamb\'e9m como um m\'e9todo que gera um novo recurso mas neste caso \'e9 indicado mesmo o POST. O m\'e9todo PUT \'e9 \ul\i idempotente e n\'e3o seguro\ulnone\i0 , \'e9 idempotente porque se voc\'ea executar v\'e1rias vezes uma atualiza\'e7\'e3o o recurso n\'e3o \'e9 modificado a partir da primeira execu\'e7\'e3o, \'e9 considerado n\'e3o seguro porque a sua primeira execu\'e7\'e3o modifica o recurso existente.\par
 \b PATCH\b0 : Atualiza um recurso parcialmente, ao contr\'e1rio do PUT que altera totalmente o PATCH serve para atualizar somente os campos que forma enviados na requisi\'e7\'e3o.\par
 \ul\i PATCH n\'e3o \'e9 seguro\ulnone\i0  porque modifica os recursos e \'e9 \ul\i idempotente\ulnone\i0  porque a mesma execu\'e7\'e3o por diversas vezes com a mesma informa\'e7\'e3o gera somente o efeito ap\'f3s a sua primeira execu\'e7\'e3o, assim como funciona com o m\'e9todo PUT\par
 \b DELETE\b0 : \'c9 um m\'e9todo \ul\i n\'e3o seguro\ulnone\i0  e tamb\'e9m \'e9 um m\'e9todo \ul\i idempotente\ulnone\i0 , ele modifica o recurso ap\'f3s a primeira execu\'e7\'e3o mas n\'e3o modifica a partir da segunda. O M\'e9todo delete serve para executar a remo\'e7\'e3o de um recurso.\par
+\b HEAD\b0  - Serve para consultar a API e obter informacoes (obter o cabecalho), saber se a API existe, se o media type \'e9 aceito etc. O m\'e9todo HEAD n\'e3o traz nenhum retorno \'e9 somente para consulta.\par
+\b OPTION - \b0 Serve para listar na URI quais sao os metodos aceitos, serve somente para obter esta lista.\par
+\par
+\b\fs28 ESR - 04.19 - Definindo o status da resposta HTTP com @ResponseStatus\par
+\b0\fs24 Com a anotacao @ResponseStatus podemos customizar o codigo http de retorno em caso de sucesso de execucao do metodo.\par
+@ResponseStatus(HttpStatus.CREATED)\b\fs28\par
 
-\pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1\b\fs28\par
+\pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1\par
 
 \pard\nowidctlpar\hyphpar0\sa200\sl276\slmult1\qj\par
 }

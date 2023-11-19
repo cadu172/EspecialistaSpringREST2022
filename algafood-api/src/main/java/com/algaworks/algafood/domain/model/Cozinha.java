@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-//@JsonRootName(value = "NomeDaRaiz")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity

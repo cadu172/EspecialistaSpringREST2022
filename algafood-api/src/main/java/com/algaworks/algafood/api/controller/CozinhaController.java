@@ -42,22 +42,18 @@ public class CozinhaController {
 		return new CozinhaXmlWrapper(cozinhaRepository.listar());
 	}
 	
-	@ResponseStatus(HttpStatus.CREATED)
+	//@ResponseStatus(HttpStatus.CREATED)
 	@GetMapping("/{cozinhaId}")
 	public ResponseEntity<Cozinha> buscar(@PathVariable("cozinhaId") Long id) {		
-		//return cozinhaRepository.buscar(id);
+		
 		Cozinha cozinha = cozinhaRepository.buscar(id);
-		//return ResponseEntity.status(HttpStatus.CREATED).body(cozinha);
-		//return ResponseEntity.ok(cozinha);
 		
-		HttpHeaders responseHeader = new HttpHeaders();
 		
-		responseHeader.add(HttpHeaders.LOCATION, "http://api.algafood.local:8080/cozinhas");
+		if (  cozinha == null ) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 		
-		return ResponseEntity
-				.status(HttpStatus.FOUND)
-				.headers(responseHeader)
-				.body(cozinha);		
+		return ResponseEntity.ok(cozinha);		
 		
 	}	
 

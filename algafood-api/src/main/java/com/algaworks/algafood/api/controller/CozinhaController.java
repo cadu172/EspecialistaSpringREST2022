@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algafood.api.model.CozinhaXmlWrapper;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /*@RequestMapping(value = "/cozinhas",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,6 +34,9 @@ public class CozinhaController {
 	
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
+	
+	@Autowired
+	private CadastroCozinhaService cadastroCozinhaService;
 	
 	//@GetMapping(value = "/listar")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,9 +66,18 @@ public class CozinhaController {
 	}
 	
 	@PostMapping
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public Cozinha salvar(@RequestBody Cozinha cozinha) {
-		return cozinhaRepository.salvar(cozinha);
+	//@ResponseStatus(value = HttpStatus.CREATED)
+	//public Cozinha adicionar(@RequestBody Cozinha cozinha) {
+	public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
+		//return cadastroCozinhaService.salvar(cozinha);
+		
+		Cozinha novaCozinha = cadastroCozinhaService.salvar(cozinha);
+		
+		if ( novaCozinha == null ) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}	
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(novaCozinha);
 	}
 
 	

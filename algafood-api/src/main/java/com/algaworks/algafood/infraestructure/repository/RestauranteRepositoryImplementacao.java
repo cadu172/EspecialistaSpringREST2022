@@ -2,6 +2,7 @@ package com.algaworks.algafood.infraestructure.repository;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -25,8 +26,15 @@ public class RestauranteRepositoryImplementacao implements RestauranteRepository
 	}
 
 	@Override
-	public Restaurante buscar(Long id) {		
-		return manager.find(Restaurante.class, id);
+	public Restaurante buscar(Long id) {
+		
+		Restaurante restaurante = manager.find(Restaurante.class, id);
+		
+		if ( restaurante == null ) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		
+		return restaurante;
 	}
 
 	@Override

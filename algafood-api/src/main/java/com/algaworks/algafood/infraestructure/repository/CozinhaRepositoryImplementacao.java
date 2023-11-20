@@ -2,6 +2,7 @@ package com.algaworks.algafood.infraestructure.repository;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -39,16 +40,21 @@ public class CozinhaRepositoryImplementacao implements CozinhaRepository {
 	
 	@Transactional
 	@Override
-	public void remover(Cozinha cozinha) {
+	public void remover(Long id) {
 		
 		/*
 		 * só é possível excluir objetos gerenciados, no caso o objeto cozinha que foi passado não é gerenciado e está "detached"
 		 * Basta fazer a busca que ele se torna gerenciado e habilita a possibilidade de exclusao
 		 * */
 		
-		cozinha = this.buscar(cozinha.getId()); // aqui o objeto passa a ser gerenciado porque foi retornado pelo método find do "EntityManager"
+		Cozinha cozinha = this.buscar(id); // aqui o objeto passa a ser gerenciado porque foi retornado pelo método find do "EntityManager"
+		
+		if ( cozinha == null ) {
+			throw new EmptyResultDataAccessException(1);
+		}
 		
 		manager.remove(cozinha);
+	
 	}
 
 }

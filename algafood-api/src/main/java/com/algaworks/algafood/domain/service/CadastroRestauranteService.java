@@ -40,4 +40,8 @@ public class CadastroRestauranteService {
 		
 	}
 	
+	public Restaurante salvar(Restaurante restaurante) {
+		return restauranteRepository.salvar(restaurante);		
+	}
+	
 }

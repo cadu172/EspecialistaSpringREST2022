@@ -1,11 +1,13 @@
 package com.algaworks.algafood.api.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -98,5 +100,23 @@ public class RestauranteController {
 		
 	}
 	
+	@PatchMapping("{restauranteId}")
+	public ResponseEntity<?> alterarParcial(@PathVariable("restauranteId") Long restauranteId,
+			@RequestBody Map<String, Object> requestBody) {
+		
+		Restaurante restauranteDestino = cadastroRestauranteService.buscar(restauranteId);
+		
+		merge(requestBody, restauranteDestino);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK).build();
+		
+	}
+
+	private void merge(Map<String, Object> restauranteOrigem, Restaurante restauranteDestino) {
+		restauranteOrigem.forEach((nomeDoCampo, valorDoCampo) -> {
+			System.out.println(nomeDoCampo + " = " + valorDoCampo);
+		});
+	}	
 
 }

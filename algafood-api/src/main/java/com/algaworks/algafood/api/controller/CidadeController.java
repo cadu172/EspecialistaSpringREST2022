@@ -103,18 +103,17 @@ public class CidadeController {
 					.body(cidade);
 			
 		}
-		catch (EntidadeNaoEncontradaException e) {
+		catch ( EntidadeNaoEncontradaException e ) {
 			return ResponseEntity
 					.status(HttpStatus.NOT_FOUND)
 					.body(e.getMessage());
 		}
 		catch ( Exception e ) {
-
+			e.printStackTrace();
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
-					.body(e.getMessage());
-		
-		}
+					.body("Ocorreu um erro ao tentar alterar objeto CIDADE : " + e.getMessage());
+		}		
 		
 	}	
 	

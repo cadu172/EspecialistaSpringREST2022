@@ -16,52 +16,51 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public class CidadeRepositoryImplementacao implements CidadeRepository {
-	
+
 	@PersistenceContext
 	private EntityManager manager;
 
 	@Override
 	public List<Cidade> listar() {
-		return manager
-				.createQuery("from Cidade", Cidade.class)
-				.getResultList();
+		return manager.createQuery("from Cidade", Cidade.class).getResultList();
 	}
 
 	@Override
 	public Cidade buscar(Long id) {
-		
+
 		Cidade cidade = manager.find(Cidade.class, id);
-		
-		if ( cidade == null ) {
+
+		if (cidade == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		
+
 		return cidade;
 	}
 
 	@Override
 	@Transactional
-	public Cidade salvar(Cidade cidade) {		
-		
+	public Cidade salvar(Cidade cidade) {
+
 		try {
-			
+
 			Cidade novaCidade = manager.merge(cidade);
-			
+
 			// retorna o novo registro de cidade
 			return novaCidade;
-			
-		} catch (EntityNotFoundException e) {
-			
+
+		}
+		catch (EntityNotFoundException e) {
+
 			String mensagemDeErro = e.getMessage();
-			
-			if ( e.getMessage().contains("Unable to find com.algaworks.algafood.domain.model.Estado with id")  ) {
+
+			if (e.getMessage().contains("Unable to find com.algaworks.algafood.domain.model.Estado with id")) {
 				mensagemDeErro = String.format("Impossível registrar CIDADE, ESTADO id %d NÃO EXISTE",
 						cidade.getEstado().getId());
 			}
-			
-			throw new EntidadeNaoEncontradaException (mensagemDeErro);
-		}		
-		
+
+			throw new EntidadeNaoEncontradaException(mensagemDeErro);
+		}
+
 	}
 
 	@Override

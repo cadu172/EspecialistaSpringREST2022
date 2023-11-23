@@ -2,11 +2,11 @@ INSERT INTO permissao (id, descricao, nome) VALUES(1, 'Usuario com permissao de 
 INSERT INTO permissao (id, descricao, nome) VALUES(2, 'Permite incluir um pedido', 'OPERACAO');
 INSERT INTO permissao (id, descricao, nome) VALUES(3, 'Permite o estorno de uma venda', 'SUPERVISAO');
 
-INSERT INTO algafood.estado (id, nome) VALUES(1, 'SP');
-INSERT INTO algafood.estado (id, nome) VALUES(2, 'RJ');
-INSERT INTO algafood.estado (id, nome) VALUES(3, 'CE');
-INSERT INTO algafood.estado (id, nome) VALUES(4, 'RS');
-INSERT INTO algafood.estado (id, nome) VALUES(5, 'MG');
+INSERT INTO algafood.estado (id, nome) VALUES(1, 'SP - São Paulo');
+INSERT INTO algafood.estado (id, nome) VALUES(2, 'RJ - Rio de Janeiro');
+INSERT INTO algafood.estado (id, nome) VALUES(3, 'CE - Ceará');
+INSERT INTO algafood.estado (id, nome) VALUES(4, 'RS - Rio Grande do Sul');
+INSERT INTO algafood.estado (id, nome) VALUES(5, 'MG - Minas Gerais');
 
 INSERT INTO cidade (estado_id, nome) VALUES(1, 'São Paulo');
 INSERT INTO cidade (estado_id, nome) VALUES(2, 'Angra dos Reis');

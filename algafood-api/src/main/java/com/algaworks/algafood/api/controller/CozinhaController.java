@@ -38,13 +38,13 @@ public class CozinhaController {
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Cozinha> listar() {		
-		return cozinhaRepository.listar();
+		return cozinhaRepository.findAll();
 	}
 	
 	@GetMapping("/{cozinhaId}")
 	public ResponseEntity<Cozinha> buscar(@PathVariable("cozinhaId") Long id) {		
 		
-		Cozinha cozinha = cozinhaRepository.buscar(id);
+		Cozinha cozinha = cadastroCozinhaService.;
 		
 		
 		if (  cozinha == null ) {

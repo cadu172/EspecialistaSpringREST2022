@@ -1,6 +1,7 @@
 package com.algaworks.algafood.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,7 +21,7 @@ public class CadastroCozinhaService {
 	
 	public Cozinha salvar(Cozinha cozinha) {
 		
-		return this.cozinhaRepository.salvar(cozinha);
+		return this.cozinhaRepository.save(cozinha);
 		
 	}
 	
@@ -31,10 +32,14 @@ public class CadastroCozinhaService {
 		
 	}
 	
+	public Optional<Cozinha> buscar(Long id) {
+		return cozinhaRepository.findById(id);
+	}
+	
 	public void excluir(Long id) {
 		
 		try {
-			cozinhaRepository.remover(id);
+			cozinhaRepository.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException("Cozinha nao pode ser removida porque ja esta sendo utilizada por um Restaurante");

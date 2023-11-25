@@ -57,4 +57,13 @@ public class CozinhaRepositoryImplementacao implements CozinhaRepository {
 	
 	}
 
+	@Override
+	public List<Cozinha> listarPorNome(String nomeDaCozinha) {
+		
+		return manager.createQuery("from Cozinha where nome like :nome ", Cozinha.class)
+				.setParameter("nome", "%"+nomeDaCozinha+"%")
+				.getResultList();
+		
+	}
+
 }

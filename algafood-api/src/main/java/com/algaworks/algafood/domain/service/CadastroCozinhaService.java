@@ -1,7 +1,5 @@
 package com.algaworks.algafood.domain.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,15 +24,14 @@ public class CadastroCozinhaService {
 		return this.cozinhaRepository.listarPorNome(nomeDaCozinha);		
 	}*/
 	
-	public Optional<Cozinha> buscarPorId(Long id) {
+	public Cozinha buscarPorId(Long id) {
 		
-		Optional<Cozinha> cozinha = cozinhaRepository.findById(id);
-		
-		if ( cozinha == null ) {
-			throw new EntidadeNaoEncontradaException(String.format("Cozinha id %d não encontrada", id));
-		}
+		Cozinha cozinha = cozinhaRepository
+					.findById(id)
+					.orElseThrow (() -> new EntidadeNaoEncontradaException(String.format("Cozinha id %d não encontrada", id)) );
 		
 		return cozinha;
+		
 	}
 	
 	public void excluir(Long id) {

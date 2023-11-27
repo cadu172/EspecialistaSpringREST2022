@@ -7,7 +7,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 
@@ -33,13 +31,14 @@ public class CozinhaController {
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 	
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	//@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping
 	public List<Cozinha> listar() {		
 		return cozinhaRepository.findAll();
 	}
 	
 	@GetMapping("/{cozinhaId}")
-	public ResponseEntity<Cozinha> buscarPorId(@PathVariable("cozinhaId") Long id) {		
+	public ResponseEntity<Cozinha> buscar(@PathVariable("cozinhaId") Long id) {		
 		
 		try {
 			
@@ -75,7 +74,7 @@ public class CozinhaController {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public ResponseEntity<?> adicionar(@RequestBody Cozinha cozinha) {	
+	public ResponseEntity<?> salvar(@RequestBody Cozinha cozinha) {	
 		
 		try {
 						
@@ -101,9 +100,9 @@ public class CozinhaController {
 		
 		try {
 			
-			Cozinha cozinhaAtual = cozinhaRepository.findById(cozinhaId).get();
+			Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId);
 			
-			if ( cozinhaAtual == null ) {
+			if ( ! cozinhaAtual.isPresent() ) {
 				return ResponseEntity
 						.status(HttpStatus.NOT_FOUND)
 						.body( String.format("Impossivel ATUALIZAR COZINHA, id %d Não encontrado", cozinhaId) );
@@ -115,20 +114,15 @@ public class CozinhaController {
 			 * Um outra forma de fazer é copiando propriedade por propriedade
 			 * Exemplo: novaCozinha.setNome(cozinhaBodyPUT.getNome())
 			 */
-			BeanUtils.copyProperties(cozinhaBodyPUT, cozinhaAtual, "id");
+			BeanUtils.copyProperties(cozinhaBodyPUT, cozinhaAtual.get(), "id");
 			
 			// salva e retorna a cozinha com as correções no update
-			cozinhaAtual = cozinhaRepository.save(cozinhaAtual);
+			Cozinha novaCozinha = cozinhaRepository.save(cozinhaAtual.get());
 			
 			return ResponseEntity
 					.status(HttpStatus.OK)
-					.body(cozinhaAtual);			
+					.body(novaCozinha);			
 		
-		}
-		catch (EntidadeNaoEncontradaException e) {
-			return ResponseEntity
-					.status(HttpStatus.NOT_FOUND)
-					.build();
 		}
 		catch (Exception e) {
 			return ResponseEntity
@@ -139,20 +133,21 @@ public class CozinhaController {
 	}
 	
 	@DeleteMapping("/{cozinhaId}")
-	public ResponseEntity<?> remover(@PathVariable("cozinhaId") Long cozinhaId) {
+	public ResponseEntity<?> excluir(@PathVariable("cozinhaId") Long cozinhaId) {
 		
 		try {
 			
-			Cozinha cozinhaAtual = cozinhaRepository.findById(cozinhaId).get();
+			Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId);
 			
-			if ( cozinhaAtual == null ) {
+			if ( ! cozinhaAtual.isPresent() ) {
+			
 				return ResponseEntity
 						.status(HttpStatus.NOT_FOUND)
 						.body( String.format("Impossivel EXCLUIR COZINHA, id %d Não encontrado", cozinhaId) );
-						
-			}
 			
-			cozinhaRepository.delete(cozinhaAtual);
+			}
+						
+			cozinhaRepository.delete(cozinhaAtual.get());
 
 			return ResponseEntity
 					.status(HttpStatus.NO_CONTENT)
@@ -166,14 +161,6 @@ public class CozinhaController {
 			
 		}
 
-		catch(EntidadeNaoEncontradaException e) {			
-			
-			return ResponseEntity
-					.status(HttpStatus.NOT_FOUND)
-					.build();
-			
-		}
-		
 		
 	}
 	

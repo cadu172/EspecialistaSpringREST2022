@@ -1,5 +1,8 @@
 package com.algaworks.algafood.domain.service;
 
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,6 +19,10 @@ public class CadastroCozinhaService {
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 	
+	public List<Cozinha> listar() {
+		return cozinhaRepository.findAll();
+	}
+	
 	public Cozinha salvar(Cozinha novaCozinha) {
 		return cozinhaRepository.save(novaCozinha);
 	}
@@ -24,13 +31,41 @@ public class CadastroCozinhaService {
 		return this.cozinhaRepository.listarPorNome(nomeDaCozinha);		
 	}*/
 	
-	public Cozinha buscarPorId(Long id) {
+	public Cozinha buscar(Long id) {
 		
 		Cozinha cozinha = cozinhaRepository
 					.findById(id)
 					.orElseThrow (() -> new EntidadeNaoEncontradaException(String.format("Cozinha id %d não encontrada", id)) );
 		
 		return cozinha;
+		
+	}
+	
+	public Cozinha incluir(Cozinha cozinha) {
+		
+		cozinha.setId(null);
+		
+		return cozinhaRepository.save(cozinha);
+	}
+	
+	public Cozinha alterar(Cozinha cozinhaNovosDados, Long cozinhaId) {
+		
+		try {
+			
+			Cozinha cozinhaAtual = this.buscar(cozinhaId);
+			
+			BeanUtils.copyProperties(cozinhaNovosDados, cozinhaAtual, "id");
+			
+			return cozinhaRepository.save(cozinhaAtual); 
+		
+		}
+		catch (EntidadeNaoEncontradaException e) {
+			
+			throw new EntidadeNaoEncontradaException(
+					String.format("Impossivel atualizar cozinha id %d não encontrado", cozinhaId));
+		
+		}
+		
 		
 	}
 	

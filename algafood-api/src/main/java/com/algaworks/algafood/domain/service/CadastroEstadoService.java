@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
@@ -20,22 +19,14 @@ public class CadastroEstadoService {
 	private EstadoRepository estadoRepository;
 	
 	public List<Estado> listar() {
-		return estadoRepository.listar();
+		return estadoRepository.findAll();
 	}
 	
 	public Estado buscar(Long estadoId) {
 		
-		try {
-
-			Estado estado = estadoRepository.buscar(estadoId);
-			
-			return estado;
-		
-		}
-		catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException (
-					String.format("Estado com ID %d não encontrado", estadoId));			
-		}
+		return estadoRepository.findById(estadoId).orElseThrow(
+				() -> new EntidadeNaoEncontradaException(String.format("Estado com ID %d não encontrado", estadoId)));
+	
 	}	
 	
 	public Estado incluir(Estado estado) {
@@ -43,11 +34,10 @@ public class CadastroEstadoService {
 		estado.setId(null);// remover id se informado
 		
 		// persistir objeto
-		return estadoRepository.salvar(estado);
+		return estadoRepository.save(estado);
 	}
 	
-	public Estado alterar(Estado estadoNovosDados, Long estadoId)
-			throws Exception {
+	public Estado alterar(Estado estadoNovosDados, Long estadoId) {
 		
 		try {
 
@@ -57,7 +47,7 @@ public class CadastroEstadoService {
 			BeanUtils.copyProperties(estadoNovosDados, cadastroEstadoAtual, "id");
 			
 			// persistir objeto
-			return estadoRepository.salvar(cadastroEstadoAtual);
+			return estadoRepository.save(cadastroEstadoAtual);
 		
 		}
 		catch (EntidadeNaoEncontradaException e) {
@@ -68,24 +58,19 @@ public class CadastroEstadoService {
 		
 	}
 	
-	public void remover(Long estadoId) throws Exception {
+	public void remover(Long estadoId) {
+		
 		try {
 
 			// remover objeto
-			estadoRepository.remover(estadoId);
+			estadoRepository.deleteById(estadoId);
 		
-		}
-		catch (EmptyResultDataAccessException e) {
-			
-			throw new EntidadeNaoEncontradaException (
-					String.format("Não foi possível EXCLUIR objeto ESTADO porque o id %d não foi localizado!", estadoId));			
 		}
 		catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException("Objeto ESTADO nao pode ser removida porque ja esta sendo utilizada por uma CIDADE");
-		}
 		
+		}		
 				
-	}
-	
+	}	
 
 }

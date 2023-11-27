@@ -34,7 +34,7 @@ public class RestauranteController {
 		return cadastroRestauranteService.listar();
 	}
 	
-	@GetMapping("{restauranteId}")
+	@GetMapping("/{restauranteId}")
 	public ResponseEntity<Restaurante> buscar(@PathVariable("restauranteId") Long restauranteId) {		
 		
 		try {
@@ -62,7 +62,7 @@ public class RestauranteController {
 		try {
 			
 			restaurante.setId(null); //forçar ficar sem ID
-			restaurante = cadastroRestauranteService.salvar(restaurante);
+			restaurante = cadastroRestauranteService.incluir(restaurante);
 			
 			return ResponseEntity
 					.status(HttpStatus.CREATED)
@@ -79,14 +79,13 @@ public class RestauranteController {
 		
 	}
 	
-	@PutMapping("{restauranteId}")
-	public ResponseEntity<?> alterar(@PathVariable("restauranteId") Long restauranteId,
-			@RequestBody Restaurante restaurante) {
+	@PutMapping("/{restauranteId}")
+	public ResponseEntity<?> alterar(@RequestBody Restaurante restaurante,
+			@PathVariable("restauranteId") Long restauranteId) {
 		
 		try {
 			
-			restaurante.setId(restauranteId); //usar ID passado no Path			
-			restaurante = cadastroRestauranteService.alterar(restaurante);
+			restaurante = cadastroRestauranteService.alterar(restaurante, restauranteId);
 			
 			return ResponseEntity
 					.status(HttpStatus.OK)
@@ -103,22 +102,23 @@ public class RestauranteController {
 		
 	}
 	
-	@PatchMapping("{restauranteId}")
+	@PatchMapping("/{restauranteId}")
 	public ResponseEntity<?> alterarParcial(@PathVariable("restauranteId") Long restauranteId,
 			@RequestBody Map<String, Object> requestBody) {
 		
-		Restaurante restauranteDestino = cadastroRestauranteService.buscar(restauranteId);
-		
-		// faz o merge somente dos campos enviados na consulta, o restante ele não altera
-		merge(requestBody, restauranteDestino);
 		
 		try {
 			
-			restauranteDestino = cadastroRestauranteService.alterar(restauranteDestino);
+			Restaurante restauranteDestino = cadastroRestauranteService.buscar(restauranteId);
+			
+			// faz o merge somente dos campos enviados na consulta, o restante ele não altera
+			merge(requestBody, restauranteDestino);
+			
+			restauranteDestino = cadastroRestauranteService.alterar(restauranteDestino, restauranteId);
 			
 			return ResponseEntity
 					.status(HttpStatus.OK)
-					.body(restauranteDestino);					
+					.body(restauranteDestino);				
 			
 		}
 		catch (EntidadeNaoEncontradaException e) {

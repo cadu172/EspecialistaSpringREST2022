@@ -20,157 +20,161 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.model.Cidade;
-import com.algaworks.algafood.domain.service.CadastroCidadeService;
+import com.algaworks.algafood.domain.model.Permissao;
+import com.algaworks.algafood.domain.service.CadastroPermissaoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@RequestMapping("/cidades")
-public class CidadeController {
+@RequestMapping("/Permissoes")
+public class PermissaoController {
 	
 	@Autowired
-	private CadastroCidadeService cadastroCidadeService;
+	private CadastroPermissaoService cadastroPermissaoService;
 	
 	@GetMapping
-	public List<Cidade> listar() {
-		
-		return cadastroCidadeService.listar();
-		
+	public List<Permissao> listar() {
+		return cadastroPermissaoService.listar();
 	}
 	
-	@GetMapping("/{cidadeId}")
-	public ResponseEntity<?> buscar(@PathVariable("cidadeId") Long cidadeId) {
+	@GetMapping("/{permissaoId}")
+	public ResponseEntity<?> buscar(@PathVariable("permissaoId") Long permissaoId) {
 		
 		try {
 			
-			Cidade cidade = cadastroCidadeService.buscar(cidadeId);
+			Permissao permissao = cadastroPermissaoService.buscar(permissaoId);
 			
 			return ResponseEntity
 					.status(HttpStatus.OK)
-					.body(cidade);
+					.body(permissao);
 			
 		}
-		catch ( EntidadeNaoEncontradaException e ) {
-
+		catch (EntidadeNaoEncontradaException e) {
+			
 			return ResponseEntity
 					.status(HttpStatus.NOT_FOUND)
 					.body(e.getMessage());
-		
-		}
-		catch ( Exception e ) {
-
-			return ResponseEntity
-					.status(HttpStatus.BAD_REQUEST)
-					.body(e.getMessage());
-		
+			
 		}
 		
 	}
+	
 	
 	@PostMapping
-	public ResponseEntity<?> incluir(@RequestBody Cidade cidade) {
+	public ResponseEntity<?> incluit(@RequestBody Permissao permissao) {
 		
 		try {
 			
-			cidade = cadastroCidadeService.incluir(cidade);
-		
+			// remover ID se for enviado no JSON
+			permissao.setId(null);
+			
+			permissao = cadastroPermissaoService.incluir(permissao);
+			
 			return ResponseEntity
 					.status(HttpStatus.CREATED)
-					.body(cidade);
+					.body(permissao);
 			
 		}
-		catch (EntidadeNaoEncontradaException e) {
-			return ResponseEntity
-					.status(HttpStatus.NOT_FOUND)
-					.body(e.getMessage());
-		}
-		catch ( Exception e ) {
-
-			return ResponseEntity
-					.status(HttpStatus.BAD_REQUEST)
-					.body(e.getMessage());
-		
-		}
-		
-	}
-	
-	
-	@PutMapping("/{cidadeId}")
-	public ResponseEntity<?> alterar(@RequestBody Cidade cidade,
-			@PathVariable("cidadeId") Long cidadeId) {
-		
-		try {
+		catch (Exception e) {
 			
-			cidade = cadastroCidadeService.alterar(cidade, cidadeId);
-		
-			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body(cidade);
-			
-		}
-		catch ( EntidadeNaoEncontradaException e ) {
-			return ResponseEntity
-					.status(HttpStatus.NOT_FOUND)
-					.body(e.getMessage());
-		}
-		catch ( Exception e ) {
 			e.printStackTrace();
-			return ResponseEntity
-					.status(HttpStatus.BAD_REQUEST)
-					.body("Ocorreu um erro ao tentar alterar objeto CIDADE : " + e.getMessage());
-		}		
-		
-	}	
-	
-	
-	@DeleteMapping("/{cidadeId}")
-	public ResponseEntity<?> remover(@PathVariable("cidadeId") Long cidadeId) {
-		try {
 			
-			cadastroCidadeService.remover(cidadeId);
-			
-			// retorna o resultado da gravação
-			return ResponseEntity
-						.status(HttpStatus.NO_CONTENT)
-						.build();
-		}
-		catch (EntidadeNaoEncontradaException e) {
-			return ResponseEntity
-					.status(HttpStatus.NOT_FOUND)
-					.body(e.getMessage());
-		}
-		catch (EntidadeEmUsoException e) {
 			return ResponseEntity
 					.status(HttpStatus.CONFLICT)
 					.body(e.getMessage());
-		}		
-		catch (Exception e) {
-			return ResponseEntity
-					.status(HttpStatus.BAD_REQUEST)
-					.body(e.getMessage());
+			
 		}
 		
 	}
 	
 	
-	@PatchMapping("/{cidadeId}")
-	public ResponseEntity<?> alterarParcial(@PathVariable("cidadeId") Long cidadeId,
+	@PutMapping("/{permissaoId}")
+	public ResponseEntity<?> alterar(@RequestBody Permissao permissao,
+			@PathVariable Long permissaoId) {
+		
+		try {
+			
+			permissao = cadastroPermissaoService.alterar(permissao, permissaoId);
+			
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(permissao);
+			
+		}
+		catch (EntidadeNaoEncontradaException e) {
+			
+			return ResponseEntity
+					.status(HttpStatus.NOT_FOUND)
+					.body(e.getMessage());
+			
+		}
+		catch (Exception e) {
+			
+			e.printStackTrace();
+			
+			return ResponseEntity
+					.status(HttpStatus.CONFLICT)
+					.body(e.getMessage());
+			
+		}
+		
+	}
+	
+	@DeleteMapping("/{permissaoId}")
+	public ResponseEntity<?> excluir(@PathVariable Long permissaoId) {
+		
+		try {
+			
+			cadastroPermissaoService.excluir(permissaoId);
+			
+			return ResponseEntity
+					.status(HttpStatus.NO_CONTENT).build();
+			
+		}
+		
+		catch (EntidadeEmUsoException e) {
+			
+			return ResponseEntity
+					.status(HttpStatus.CONFLICT)
+					.body(e.getMessage());
+			
+		}		
+		catch (EntidadeNaoEncontradaException e) {
+			
+			return ResponseEntity
+					.status(HttpStatus.NOT_FOUND)
+					.body(e.getMessage());
+			
+		}
+		catch (Exception e) {
+			
+			e.printStackTrace();
+			
+			return ResponseEntity
+					.status(HttpStatus.CONFLICT)
+					.body(e.getMessage());
+			
+		}
+		
+	}
+	
+	@PatchMapping("/{permissaoId}")
+	public ResponseEntity<?> alterarParcial(@PathVariable("permissaoId") Long permissaoId,
 			@RequestBody Map<String, Object> requestBody) {
 		
 		try {
 			
-			Cidade cidade = cadastroCidadeService.buscar(cidadeId);
+			Permissao permissao = cadastroPermissaoService.buscar(permissaoId);
 			
 			// faz o merge somente dos campos enviados na consulta, o restante ele não altera
-			merge(requestBody, cidade);
+			merge(requestBody, permissao);
 			
 			// reutilizar rotina de alteração que já está pronta
-			cidade = cadastroCidadeService.alterar(cidade, cidadeId);
+			permissao = cadastroPermissaoService.alterar(permissao, permissaoId);
 			
 			// retornar entidade atualizada
 			return ResponseEntity
 						.status(HttpStatus.OK)
-						.body(cidade);
+						.body(permissao);
 			
 		}
 		catch (EntidadeNaoEncontradaException e) {
@@ -192,27 +196,27 @@ public class CidadeController {
 		
 	}
 	
-	private void merge(Map<String, Object> requestBody, Cidade cidadeDestino) {
+	private void merge(Map<String, Object> requestBody, Permissao permissaoDestino) {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		// converte o requestBody em um tipo Restaurantes
-		Cidade cidadeOrigem = objectMapper.convertValue(requestBody, Cidade.class);
+		Permissao permissaoOrigem = objectMapper.convertValue(requestBody, Permissao.class);
 		
 		// percorre o requestBody para "fazer um set" das requisições no objeto destino
 		requestBody.forEach((chave, valor) -> {
 			
 			// Este Reflections procura no objeto o "atributo atual" armazenado na variável chave
-			Field nomeCampo = ReflectionUtils.findField(Cidade.class, chave);
+			Field nomeCampo = ReflectionUtils.findField(Permissao.class, chave);
 			
 			// coverte o atributo da classe de private para public em tempo de execução
 			nomeCampo.setAccessible(true);
 			
 			// Este reflection procura o campo encontrado no requestBody e obtem o valor do campo
-			Object novoValor = ReflectionUtils.getField(nomeCampo, cidadeOrigem);
+			Object novoValor = ReflectionUtils.getField(nomeCampo, permissaoOrigem);
 			
 			// Este utilitário altera no objeto final (encontrado no banco) o valor passado no requestBody no campo atual
-			ReflectionUtils.setField(nomeCampo, cidadeDestino, novoValor);
+			ReflectionUtils.setField(nomeCampo, permissaoDestino, novoValor);
 			
 		});
 	}	

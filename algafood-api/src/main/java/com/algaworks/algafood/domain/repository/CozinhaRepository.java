@@ -12,11 +12,11 @@ import com.algaworks.algafood.domain.model.Cozinha;
 public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 	
 	// só de declarar asssim o Spring cria automáticamente uma rotina que faz a busca por nome (exato)
-	//List<Cozinha> nome(String nomeDaCozinha);	
+	List<Cozinha> nome(String nomeDaCozinha);	
 	
 	// Desta forma também faz a busca exata, basta informar o prefixo "findBy" + "nome do campo", conforme exemplo abaixo
 	// exemplo: findByNome
-	//List<Cozinha> findByNome(String nomeDaCozinha);
+	List<Cozinha> findByNome(String nomeDaCozinha);
 	
 	/*
 	 * quais são os prefixos?
@@ -28,6 +28,10 @@ public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 	 * */
 	//obtem uma lista de cozinhas
 	List<Cozinha> findTodasAsCozinhaByNome(String nomeDaCozinha);
+	
+	
+	// busca por nome onde o nome contenha a string passada como parametros (equivalente ao Like do SQL)
+	List<Cozinha> findByNomeContaining(String nomeDaCozinha);
 	
 	
 	// obtem uma unica cozinha

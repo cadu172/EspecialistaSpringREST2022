@@ -36,4 +36,7 @@ public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 	
 	// obtem uma unica cozinha
 	Optional<Cozinha> findCozinhaByNome(String nomeDaCozinha);
+	
+	// verificar se cozinha existe
+	boolean existsByNome(String nomeDaCozinha);
 }

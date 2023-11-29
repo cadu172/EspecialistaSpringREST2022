@@ -35,19 +35,44 @@ public class TesteController {
 		return cozinhaRepository.findCozinhaByNome(nome);
 	}
 	
-	@GetMapping("/restaurantes/TaxaFreteEntre")
-	public List<Restaurante> findByTaxaFreteBetween (
+	@GetMapping("/restaurantes/queryByTaxaFreteBetween")
+	public List<Restaurante> queryByTaxaFreteBetween (
 			@RequestParam("taxaFreteInicial") Double taxaFreteInicial,
 			@RequestParam("taxaFreteFinal") Double taxaFreteFinal) {
-		return restauranteRepository.findByTaxaFreteBetween(taxaFreteInicial, taxaFreteFinal);
+		return restauranteRepository.queryByTaxaFreteBetween(taxaFreteInicial, taxaFreteFinal);
 	}
 	
-	@GetMapping("/restaurantes/PorNomeRestauranteIdCozinha")
-	public List<Restaurante> findByTaxaFreteBetween (
-			@RequestParam("nomeCozinha") String nomeCozinha,
+	@GetMapping("/restaurantes/findByNomeContainingAndCozinhaId")
+	public List<Restaurante> findByNomeContainingAndCozinhaId (
+			@RequestParam("nomeRestaurante") String nomeRestaurante,
 			@RequestParam("cozinhaId") Long cozinhaId) {
-		return restauranteRepository.findByNomeContainingAndCozinhaId(nomeCozinha, cozinhaId);
+		return restauranteRepository.findByNomeContainingAndCozinhaId(nomeRestaurante, cozinhaId);
+	}
+	
+	@GetMapping("/restaurantes/findFirstRestauranteByNomeContaining")
+	public Optional<Restaurante> findFirstRestauranteByNomeContaining (@RequestParam("nomeRestaurante") String nomeRestaurante) {
+		return restauranteRepository.findFirstRestauranteByNomeContaining(nomeRestaurante);
 	}	
 	
+	
+	@GetMapping("/restaurantes/findTop2ByNomeContaining")
+	public List<Restaurante> findTop2ByNomeContaining (@RequestParam("nomeRestaurante") String nomeRestaurante) {
+		return restauranteRepository.findTop2ByNomeContaining(nomeRestaurante);
+	}
+	
+	@GetMapping("/restaurantes/countByNomeContaining")
+	public int countByNomeContaining (@RequestParam("nomeRestaurante") String nomeRestaurante) {
+		return restauranteRepository.countByNomeContaining(nomeRestaurante);
+	}
+
+	@GetMapping("/restaurantes/countByCozinhaId")
+	public int countByCozinhaId (@RequestParam("cozinhaId") Long cozinhaId) {
+		return restauranteRepository.countByCozinhaId(cozinhaId);
+	}	
+	
+	@GetMapping("/cozinhas/existsByNome")
+	public boolean existsByNome (@RequestParam("nomeDaCozinha") String nomeDaCozinha) {
+		return cozinhaRepository.existsByNome(nomeDaCozinha);
+	}
 
 }

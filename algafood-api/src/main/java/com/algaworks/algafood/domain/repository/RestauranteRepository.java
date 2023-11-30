@@ -18,7 +18,7 @@ public interface RestauranteRepository extends JpaRepository<Restaurante, Long> 
 	// isso aqui é bruxaria rsrs
 	//List<Restaurante> findByNomeContainingAndCozinhaId(String nomeRestaurante, Long cozinhaId);
 	
-	@Query("from Restaurante where nome like %:nomeRestaurante% and cozinha.id = :id") //outra bruxaria
+	//@Query("from Restaurante where nome like %:nomeRestaurante% and cozinha.id = :id") //outra bruxaria
 	List<Restaurante> findByNomeContainingAndCozinhaId(String nomeRestaurante,@Param("id") Long cozinhaId);
 	
 	// procura o restaurante por nome contendo a cadeia de caracteres e retorna o primeiro registro

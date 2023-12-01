@@ -74,5 +74,12 @@ public class TesteController {
 	public boolean existsByNome (@RequestParam("nomeDaCozinha") String nomeDaCozinha) {
 		return cozinhaRepository.existsByNome(nomeDaCozinha);
 	}
-
+	
+	@GetMapping("/restaurantes/find")
+	public List<Restaurante> find (@RequestParam("nome") String nome,
+			@RequestParam("taxaFreteInicial") Double taxaFreteInicial,
+			@RequestParam("taxaFreteFinal") Double taxaFreteFinal) {
+		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
+	}
+	
 }

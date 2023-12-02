@@ -76,9 +76,10 @@ public class TesteController {
 	}
 	
 	@GetMapping("/restaurantes/find")
-	public List<Restaurante> find (@RequestParam("nome") String nome,
-			@RequestParam("taxaFreteInicial") Double taxaFreteInicial,
-			@RequestParam("taxaFreteFinal") Double taxaFreteFinal) {
+	public List<Restaurante> find (
+			@RequestParam(value = "nome", required = false) String nome,
+			@RequestParam(value = "taxaFreteInicial", required = false) Double taxaFreteInicial,
+			@RequestParam(value = "taxaFreteFinal", required = false) Double taxaFreteFinal) {
 		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
 	}
 	

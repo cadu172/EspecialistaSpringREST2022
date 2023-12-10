@@ -1,8 +1,10 @@
 package com.algaworks.algafood.infraestructure.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepositoryCustom;
@@ -30,12 +32,21 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryCustom {
 		
 		Root<Restaurante> root = criteria.from(Restaurante.class);
 		
-		Predicate likeNome = criteriaBuilder.like(root.get("nome"), "%" + nome + "%");
+		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		Predicate taxaFreteBetweenStart = criteriaBuilder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial);
-		Predicate taxaFreteBetweenEnd = criteriaBuilder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal);
+		if ( StringUtils.hasText(nome)  ) {
+			predicates.add(criteriaBuilder.like(root.get("nome"), "%" + nome + "%"));
+		}
 		
-		criteria.where(likeNome, taxaFreteBetweenStart, taxaFreteBetweenEnd);
+		if ( taxaFreteInicial != null ) {
+			predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial));
+		}
+		
+		if ( taxaFreteFinal != null ) {
+			predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal));
+		}
+	
+		criteria.where( predicates.toArray(new Predicate[predicates.size()]) );
 		
 		TypedQuery<Restaurante> query = manager.createQuery(criteria);
 		

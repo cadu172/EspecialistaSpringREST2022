@@ -1,12 +1,18 @@
 package com.algaworks.algafood.infraestructure.repository;
 
+import static com.algaworks.algafood.infraestructure.repository.spec.RestauranteFactorySpecs.comFreteGratis;
+import static com.algaworks.algafood.infraestructure.repository.spec.RestauranteFactorySpecs.likeNome;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.algaworks.algafood.domain.model.Restaurante;
+import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepositoryCustom;
 
 import jakarta.persistence.EntityManager;
@@ -22,6 +28,9 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryCustom {
 	
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired @Lazy
+	private RestauranteRepository restauranteRepository;
 	
 	@Override
 	public List<Restaurante> find(String nome, Double taxaFreteInicial, Double taxaFreteFinal) {
@@ -52,6 +61,14 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryCustom {
 		
 		return query.getResultList();
 		
+	}
+
+	@Override
+	public List<Restaurante> findByNomeComFreteGratis(String nome) {		
+		return restauranteRepository.findAll (
+				comFreteGratis()
+				.and(likeNome(nome))
+				); 
 	}
 
 }

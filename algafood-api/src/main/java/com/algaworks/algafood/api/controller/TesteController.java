@@ -14,7 +14,7 @@ import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 
-import static com.algaworks.algafood.infraestructure.repository.spec.RestauranteFactorySpecs.*;
+//import static com.algaworks.algafood.infraestructure.repository.spec.RestauranteFactorySpecs.*;
 
 @RestController
 @RequestMapping("/Teste")
@@ -91,10 +91,7 @@ public class TesteController {
 		
 		/*RestauranteComFreteGratisSpec freteGratis = new RestauranteComFreteGratisSpec();
 		RestauranteNomeLikeSpec likeNome = new RestauranteNomeLikeSpec(nome);*/		
-		return restauranteRepository.findAll (
-				comFreteGratis()
-				.and(likeNome(nome))
-				);
+		return restauranteRepository.findByNomeComFreteGratis(nome);
 	}	
 	
 }

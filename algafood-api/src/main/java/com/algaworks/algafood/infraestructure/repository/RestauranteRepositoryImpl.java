@@ -12,6 +12,8 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 @Repository
 public class RestauranteRepositoryImpl implements RestauranteRepositoryCustom {
@@ -26,7 +28,14 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryCustom {
 		
 		CriteriaQuery<Restaurante> criteria = criteriaBuilder.createQuery(Restaurante.class);
 		
-		criteria.from(Restaurante.class);
+		Root<Restaurante> root = criteria.from(Restaurante.class);
+		
+		Predicate likeNome = criteriaBuilder.like(root.get("nome"), "%" + nome + "%");
+		
+		Predicate taxaFreteBetweenStart = criteriaBuilder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial);
+		Predicate taxaFreteBetweenEnd = criteriaBuilder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal);
+		
+		criteria.where(likeNome, taxaFreteBetweenStart, taxaFreteBetweenEnd);
 		
 		TypedQuery<Restaurante> query = manager.createQuery(criteria);
 		

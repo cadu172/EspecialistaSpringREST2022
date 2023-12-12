@@ -95,4 +95,16 @@ public class TesteController {
 		return restauranteRepository.findAll(freteGratis.and(likeNome));
 	}	
 	
+	@GetMapping("/restaurantes/buscar-primeiro-registro")
+	public Optional<Restaurante> buscarPrimeiroRegistroRestaurante () {
+		
+		return restauranteRepository.buscarPrimeiro();
+	}	
+	
+	@GetMapping("/cozinhas/buscar-primeiro-registro")
+	public Optional<Cozinha> buscarPrimeiroRegistroCozinha () {
+		
+		return cozinhaRepository.buscarPrimeiro();
+	}		
+	
 }

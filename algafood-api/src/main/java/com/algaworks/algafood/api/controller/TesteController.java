@@ -13,8 +13,8 @@ import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
-import com.algaworks.algafood.infraestructure.repository.spec.RestauranteComFreteGratisSpec;
-import com.algaworks.algafood.infraestructure.repository.spec.RestauranteNomeLikeSpec;
+
+//import static com.algaworks.algafood.infraestructure.repository.spec.RestauranteFactorySpecs.*;
 
 @RestController
 @RequestMapping("/Teste")
@@ -89,10 +89,9 @@ public class TesteController {
 	public List<Restaurante> find (
 			@RequestParam(value = "nome", required = false) String nome) {
 		
-		RestauranteComFreteGratisSpec freteGratis = new RestauranteComFreteGratisSpec();
-		RestauranteNomeLikeSpec likeNome = new RestauranteNomeLikeSpec(nome);
-		
-		return restauranteRepository.findAll(freteGratis.and(likeNome));
+		/*RestauranteComFreteGratisSpec freteGratis = new RestauranteComFreteGratisSpec();
+		RestauranteNomeLikeSpec likeNome = new RestauranteNomeLikeSpec(nome);*/		
+		return restauranteRepository.findByNomeComFreteGratis(nome);
 	}	
 	
 	@GetMapping("/restaurantes/buscar-primeiro-registro")

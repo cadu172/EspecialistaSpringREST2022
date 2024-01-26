@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.model.FormaPagamento;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
-import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 
 @Service
@@ -24,10 +22,6 @@ public class CadastroRestauranteService {
 	
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
-	
-	@Autowired
-	private FormaPagamentoRepository formaPagamentoRepository;
-
 	
 	public List<Restaurante> listar() {
 		return restauranteRepository.findAll();
@@ -50,12 +44,9 @@ public class CadastroRestauranteService {
 				.orElseThrow(() -> new EntidadeNaoEncontradaException(
 						String.format("Cozinha ID %d não encontrada", cozinhaId)));
 		
-		/*FormaPagamento formaPagamento = formaPagamentoRepository.findById(formaPagamentoId)
-				.orElseThrow(() -> new EntidadeNaoEncontradaException(
-						String.format("Forma de pagamento id %d não encontrado", formaPagamentoId)) );*/
-		
 		restaurante.setCozinha(cozinha);
-		//restaurante.setFormaPagamento(formaPagamento);
+		
+		// verificar depois como é feito para incluir a lista de formas de pagamento
 		
 		return restauranteRepository.save(restaurante);		
 	}
@@ -68,10 +59,12 @@ public class CadastroRestauranteService {
 			Restaurante restauranteAtual = this.buscar(restauranteId);
 			
 			// copiar dados passados
-			BeanUtils.copyProperties(restaurante, restauranteAtual, "id");			
+			// obs: o terceiro e o quarto parâmetro são os campos que devemos ignorar ao fazer a cópia dos elementos
+			BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento");			
 		
 			// caso não tenha exceção na linha de consulta, atualizar
-			return this.incluir(restaurante);
+			//return this.incluir(restaurante);
+			return restauranteRepository.save(restauranteAtual);
 
 		}
 		catch (EntidadeNaoEncontradaException e) {

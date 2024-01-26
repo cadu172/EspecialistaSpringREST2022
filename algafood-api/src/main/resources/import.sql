@@ -33,4 +33,10 @@ INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(4, 25
 
 
 
-INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 1),(2, 1),(3, 1),(1, 2),(2, 2),(1, 3),(1, 4);
+INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 1);
+INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (2, 1);
+INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (3, 1);
+INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 2);
+INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (2, 2);
+INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 3);
+INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 4);

@@ -44,18 +44,18 @@ public class CadastroRestauranteService {
 	public Restaurante incluir(Restaurante restaurante) {
 		
 		Long cozinhaId = restaurante.getCozinha().getId();
-		Long formaPagamentoId = restaurante.getFormaPagamento().getId();
+		//Long formaPagamentoId = restaurante.getFormaPagamento().getId();
 		
 		Cozinha cozinha = cozinhaRepository.findById(cozinhaId)
 				.orElseThrow(() -> new EntidadeNaoEncontradaException(
 						String.format("Cozinha ID %d não encontrada", cozinhaId)));
 		
-		FormaPagamento formaPagamento = formaPagamentoRepository.findById(formaPagamentoId)
+		/*FormaPagamento formaPagamento = formaPagamentoRepository.findById(formaPagamentoId)
 				.orElseThrow(() -> new EntidadeNaoEncontradaException(
-						String.format("Forma de pagamento id %d não encontrado", formaPagamentoId)) );
+						String.format("Forma de pagamento id %d não encontrado", formaPagamentoId)) );*/
 		
 		restaurante.setCozinha(cozinha);
-		restaurante.setFormaPagamento(formaPagamento);
+		//restaurante.setFormaPagamento(formaPagamento);
 		
 		return restauranteRepository.save(restaurante);		
 	}

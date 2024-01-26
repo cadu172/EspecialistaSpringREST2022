@@ -1,6 +1,8 @@
 package com.algaworks.algafood.domain.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,13 +36,11 @@ public class Restaurante {
 	@JoinColumn(name = "cozinha_id", nullable = false) // anotação usada para definir qual a coluna da Entity restaurante deve ser a Foreign Key da tabela Cozinha
 	private Cozinha cozinha;
 	
-	/*
-	 * estou deixando este relacionamento em Muitos Restaurantes aceitam a forma de pagamento "X" porém por regra isso vai definir que o restaurante
-	 * vai aceitar somente uma forma de pagamento porque será criada uma coluna na tabela restaurante com a forma de pagemento.
-	 * O Certo neste caso seria construir uma Entity auxiliar que possa guardar o relacionamento N para N ou seja, um Restaurante pode aceitar "Uma ou Várias" formas
-	 * de pagamento como "Uma forma de pagamento pode estar presente em muitos Restaurantes"*/
-	@ManyToOne
-	@JoinColumn(name = "forma_pagamento_id", nullable = false)
-	private FormaPagamento formaPagamento;
+	@ManyToMany
+	@JoinTable(name = "restaurante_forma_pagamento",
+		joinColumns = {@JoinColumn(name = "restaurante_id") },
+		inverseJoinColumns = { @JoinColumn(name = "forma_pagamento_id") })
+	
+	private List<FormaPagamento> formasPagamento = new ArrayList<FormaPagamento>();
 	
 }

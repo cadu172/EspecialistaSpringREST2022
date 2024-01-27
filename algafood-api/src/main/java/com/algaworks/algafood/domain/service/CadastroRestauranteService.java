@@ -44,7 +44,10 @@ public class CadastroRestauranteService {
 				.orElseThrow(() -> new EntidadeNaoEncontradaException(
 						String.format("Cozinha ID %d não encontrada", cozinhaId)));
 		
+		//System.out.println("cozinha: " + restaurante.getFormasPagamento().get(0));
+		
 		restaurante.setCozinha(cozinha);
+		restaurante.setFormasPagamento(restaurante.getFormasPagamento());
 		
 		// verificar depois como é feito para incluir a lista de formas de pagamento
 		

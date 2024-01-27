@@ -1,12 +1,19 @@
 package com.algaworks.algafood.domain.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,8 +40,19 @@ public class Produto {
 	@Column(nullable = false)
 	private Boolean ativo;
 	
+	@CreationTimestamp
+	@Column(nullable = false, columnDefinition = "datetime")
+	private LocalDateTime dataCadastro;
+	
+	@UpdateTimestamp
+	@Column(nullable = false, columnDefinition = "datetime")
+	private LocalDateTime dataAtualizacao;
+	
+	@JsonIgnore
 	@ManyToOne
-	@Column(nullable = false) 
+	@JoinColumn(name = "restaurante_id", nullable = false)
+	// entendo que este não seja o relacionamento correto entretanto estou seguindo a aula
 	private Restaurante restaurante;
+	
 
 }

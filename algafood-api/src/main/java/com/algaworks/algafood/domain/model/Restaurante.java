@@ -20,6 +20,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -65,5 +66,7 @@ public class Restaurante {
 	@Embedded
 	private Endereco endereco;
 	
+	@OneToMany(mappedBy = "restaurante")
+	private List<Produto> produtos = new ArrayList<Produto>();	
 	
 }

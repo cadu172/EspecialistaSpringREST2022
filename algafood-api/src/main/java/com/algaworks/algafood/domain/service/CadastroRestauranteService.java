@@ -67,7 +67,8 @@ public class CadastroRestauranteService {
 					"id",
 					"formasPagamento",
 					"endereco",
-					"dataCadastro");			
+					"dataCadastro",
+					"produtos");			
 		
 			// caso não tenha exceção na linha de consulta, atualizar
 			//return this.incluir(restaurante);

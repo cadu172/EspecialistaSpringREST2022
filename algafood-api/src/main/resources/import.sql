@@ -37,3 +37,7 @@ INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurant
 INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (2, 2);
 INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 3);
 INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 4);
+
+INSERT INTO algafood.produto (id, ativo, preco, restaurante_id, descricao, nome,data_cadastro, data_atualizacao) VALUES(1,true, 150.25, 1, 'Super lanche montado pelo chef', 'SubWayMax',utc_timestamp,utc_timestamp);
+INSERT INTO algafood.produto (id, ativo, preco, restaurante_id, descricao, nome,data_cadastro, data_atualizacao) VALUES(2,true, 150.25, 2, 'Pão com presunto do chave', 'Subway Presunto do Chaves',utc_timestamp,utc_timestamp);
+INSERT INTO algafood.produto (id, ativo, preco, restaurante_id, descricao, nome,data_cadastro, data_atualizacao) VALUES(3,true, 150.25, 3, 'Churrasco Grego', 'Gregão',utc_timestamp,utc_timestamp);

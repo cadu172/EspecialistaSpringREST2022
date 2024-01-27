@@ -8,11 +8,12 @@ INSERT INTO algafood.estado (id, nome) VALUES(3, 'CE - Ceará');
 INSERT INTO algafood.estado (id, nome) VALUES(4, 'RS - Rio Grande do Sul');
 INSERT INTO algafood.estado (id, nome) VALUES(5, 'MG - Minas Gerais');
 
-INSERT INTO cidade (estado_id, nome) VALUES(1, 'São Paulo');
-INSERT INTO cidade (estado_id, nome) VALUES(2, 'Angra dos Reis');
-INSERT INTO cidade (estado_id, nome) VALUES(3, 'Fortaleza');
-INSERT INTO cidade (estado_id, nome) VALUES(4, 'Alvorada');
-INSERT INTO cidade (estado_id, nome) VALUES(5, 'Belo Horizonte');
+INSERT INTO cidade (id, nome,estado_id) VALUES(1, 'São Paulo',1);
+INSERT INTO cidade (id, nome,estado_id) VALUES(2, 'Angra dos Reis',2);
+INSERT INTO cidade (id, nome,estado_id) VALUES(3, 'Fortaleza',3);
+INSERT INTO cidade (id, nome,estado_id) VALUES(4, 'Alvorada',4);
+INSERT INTO cidade (id, nome,estado_id) VALUES(5, 'Belo Horizonte',5);
+INSERT INTO cidade (id, nome,estado_id) VALUES(6, 'Cotia',1);
 
 INSERT INTO algafood.forma_pagamento (id, descricao) VALUES(1, 'DINHEIRO');
 INSERT INTO algafood.forma_pagamento (id, descricao) VALUES(2, 'PIX');
@@ -20,18 +21,14 @@ INSERT INTO algafood.forma_pagamento (id, descricao) VALUES(3, 'CARTAO DE CREDIT
 INSERT INTO algafood.forma_pagamento (id, descricao) VALUES(4, 'PAYPAL');
 
 INSERT INTO cozinha (id,nome) VALUES (1,'Americana');
-INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(1, 25.00, 'Subway',1);
-
 INSERT INTO cozinha (id,nome) VALUES (2,'Portuguesa');
-INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(2, 23.45, 'Alfama dos Marinheiros',2);
-
 INSERT INTO cozinha (id,nome) VALUES (3,'Tailandesa');
-INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(3, 40.00, 'Hub Food & Art Lounge',3);
-
 INSERT INTO cozinha (id,nome) VALUES (4,'Brasileira');
+
+INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero) VALUES(1, 25.00, 'Subway',1, 6, 'Chacara Ondas Verdes','06715725','Casa 30','Estrada do Capuava','2451');
+INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(2, 23.45, 'Alfama dos Marinheiros',2);
+INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(3, 40.00, 'Hub Food & Art Lounge',3);
 INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(4, 25.00, 'Mocotó',4);
-
-
 
 INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 1);
 INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (2, 1);

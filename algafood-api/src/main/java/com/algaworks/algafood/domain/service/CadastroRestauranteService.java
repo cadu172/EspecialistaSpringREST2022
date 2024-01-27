@@ -63,7 +63,7 @@ public class CadastroRestauranteService {
 			
 			// copiar dados passados
 			// obs: o terceiro e o quarto parâmetro são os campos que devemos ignorar ao fazer a cópia dos elementos
-			BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento");			
+			BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco");			
 		
 			// caso não tenha exceção na linha de consulta, atualizar
 			//return this.incluir(restaurante);

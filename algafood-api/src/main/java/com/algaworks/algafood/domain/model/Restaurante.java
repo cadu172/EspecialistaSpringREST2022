@@ -39,7 +39,7 @@ public class Restaurante {
 	@JoinColumn(name = "cozinha_id", nullable = false) // anotação usada para definir qual a coluna da Entity restaurante deve ser a Foreign Key da tabela Cozinha
 	private Cozinha cozinha;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "restaurante_forma_pagamento",
 		joinColumns = {@JoinColumn(name = "restaurante_id") },

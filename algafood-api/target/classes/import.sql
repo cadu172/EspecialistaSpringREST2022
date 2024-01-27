@@ -25,10 +25,10 @@ INSERT INTO cozinha (id,nome) VALUES (2,'Portuguesa');
 INSERT INTO cozinha (id,nome) VALUES (3,'Tailandesa');
 INSERT INTO cozinha (id,nome) VALUES (4,'Brasileira');
 
-INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero) VALUES(1, 25.00, 'Subway',1, 6, 'Chacara Ondas Verdes','06715725','Casa 30','Estrada do Capuava','2451');
-INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(2, 23.45, 'Alfama dos Marinheiros',2);
-INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(3, 40.00, 'Hub Food & Art Lounge',3);
-INSERT INTO algafood.restaurante (id, taxa_frete, nome, cozinha_id) VALUES(4, 25.00, 'Mocotó',4);
+INSERT INTO algafood.restaurante (data_cadastro, data_atualizacao,id, taxa_frete, nome, cozinha_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero) VALUES(utc_timestamp,utc_timestamp,1, 25.00, 'Subway',1, 6, 'Chacara Ondas Verdes','06715725','Casa 30','Estrada do Capuava','2451');
+INSERT INTO algafood.restaurante (data_cadastro, data_atualizacao,id, taxa_frete, nome, cozinha_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero) VALUES(utc_timestamp,utc_timestamp,2, 25.00, 'MacDonalds',1, 6, 'Chacara Ondas Verdes','06715725','Casa 30','Estrada do Capuava','2451');
+INSERT INTO algafood.restaurante (data_cadastro, data_atualizacao,id, taxa_frete, nome, cozinha_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero) VALUES(utc_timestamp,utc_timestamp,3, 25.00, 'Comida da Fazenda',1, 6, 'Chacara Ondas Verdes','06715725','Casa 30','Estrada do Capuava','2451');
+INSERT INTO algafood.restaurante (data_cadastro, data_atualizacao,id, taxa_frete, nome, cozinha_id, endereco_cidade_id, endereco_bairro, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero) VALUES(utc_timestamp,utc_timestamp,4, 25.00, 'Bom Gosto',1, 6, 'Chacara Ondas Verdes','06715725','Casa 30','Estrada do Capuava','2451');
 
 INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (1, 1);
 INSERT INTO algafood.restaurante_forma_pagamento (forma_pagamento_id, restaurante_id) VALUES (2, 1);

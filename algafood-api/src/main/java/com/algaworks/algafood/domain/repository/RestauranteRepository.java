@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,14 @@ import com.algaworks.algafood.domain.model.Restaurante;
 public interface RestauranteRepository extends CustomJpaRepository<Restaurante, Long>,
 	RestauranteRepositoryCustom,
 	JpaSpecificationExecutor<Restaurante> {
+	
+	/**
+	 * o join é feito com as propriedades da classe Restaurante, no exemplo abaixo tem as propriedades cozinha e formasPagamento da classe Restaurante
+	 * internamente o JPA/Hibernate constroi o comando SQL com base neste JPQL 
+	 */
+	@Override
+	@Query("from Restaurante r join r.cozinha left join fetch r.formasPagamento ") **** JPQL não está gerando o comando SQL com INNER JOIN em todas as tabelas, é como se ele não estivesse fazendo @override do método findAll()
+	List<Restaurante> findAll();
 	
 	List<Restaurante> queryByTaxaFreteBetween(Double taxaFreteInicial, Double taxaFreteFinal);
 	

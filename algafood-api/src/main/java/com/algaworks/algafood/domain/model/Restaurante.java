@@ -9,12 +9,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -62,8 +60,8 @@ public class Restaurante {
 	 *  necessário usar @JsonIgnoreProperties(aqui você passa um array com as propriedades da "instância" que devem ser ignorados)
 	 */
 	//@JsonIgnore
-	@JsonIgnoreProperties({"hibernateLazyInitializer"}) //com.algaworks.algafood.domain.model.Cozinha$HibernateProxy$ilUKNkj6["hibernateLazyInitializer"]	
-	@ManyToOne(fetch = FetchType.LAZY) 
+	//@JsonIgnoreProperties({"hibernateLazyInitializer"}) //com.algaworks.algafood.domain.model.Cozinha$HibernateProxy$ilUKNkj6["hibernateLazyInitializer"]	
+	@ManyToOne //(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "cozinha_id", nullable = false) // anotação usada para definir qual a coluna da Entity restaurante deve ser a Foreign Key da tabela Cozinha
 	private Cozinha cozinha;
 	
@@ -72,15 +70,15 @@ public class Restaurante {
 	 *  Aqui usa estratégia Lazy Loading ou seja... 
 	 *  vai dar select na tabela forma_pagamento somente se a informação for apresentada no JSON/XML @ManyToMany só faz o select se precisar
 	 */
-	@JsonIgnore
-	@ManyToMany
+	//@JsonIgnore
+	@ManyToMany //(fetch = FetchType.EAGER) // você pode usar isso pra carregar como Eager por padrão mas na prática isso não é necessário 
 	@JoinTable(name = "restaurante_forma_pagamento",
 		joinColumns = {@JoinColumn(name = "restaurante_id") },
 		inverseJoinColumns = { @JoinColumn(name = "forma_pagamento_id") })	
 	private List<FormaPagamento> formasPagamento = new ArrayList<FormaPagamento>();
 	
 	@JsonIgnore
-	@Embedded // significa que o objeto endereço deve ser incorporado a classe como se fizesse parte dela
+	@Embedded  // significa que o objeto endereço deve ser incorporado a classe como se fizesse parte dela
 	private Endereco endereco;
 	
 	

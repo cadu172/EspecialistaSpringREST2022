@@ -2,6 +2,14 @@ INSERT INTO permissao (id, descricao, nome) VALUES(1, 'Usuario com permissao de 
 INSERT INTO permissao (id, descricao, nome) VALUES(2, 'Permite incluir um pedido', 'OPERACAO');
 INSERT INTO permissao (id, descricao, nome) VALUES(3, 'Permite o estorno de uma venda', 'SUPERVISAO');
 
+INSERT INTO algafood.grupo (id, nome) VALUES(1, 'ADMIN');
+INSERT INTO algafood.grupo (id, nome) VALUES(2, 'SUPERVISOR');
+INSERT INTO algafood.grupo (id, nome) VALUES(3, 'OPERACIONAL');
+
+
+INSERT INTO algafood.grupo_permissao (grupo_id, permissao_id) VALUES (1, 1),(1, 2),(2, 2),(3, 3);
+
+
 INSERT INTO algafood.estado (id, nome) VALUES(1, 'SP - São Paulo');
 INSERT INTO algafood.estado (id, nome) VALUES(2, 'RJ - Rio de Janeiro');
 INSERT INTO algafood.estado (id, nome) VALUES(3, 'CE - Ceará');

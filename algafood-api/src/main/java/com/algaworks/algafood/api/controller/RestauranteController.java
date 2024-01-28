@@ -31,7 +31,10 @@ public class RestauranteController {
 	
 	@GetMapping
 	public List<Restaurante> listar() {		
-		return cadastroRestauranteService.listar();
+		List<Restaurante> restaurantes = cadastroRestauranteService.listar();		
+		/*System.out.println(restaurantes.get(0).getNome());		
+		restaurantes.get(0).getFormasPagamento().forEach(System.out::println);*/		
+		return restaurantes;
 	}
 	
 	@GetMapping("/{restauranteId}")

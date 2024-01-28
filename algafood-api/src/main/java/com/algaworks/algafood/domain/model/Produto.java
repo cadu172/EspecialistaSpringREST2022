@@ -49,7 +49,7 @@ public class Produto {
 	private LocalDateTime dataAtualizacao;
 	
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne // aqui tem um Eager Loading
 	@JoinColumn(name = "restaurante_id", nullable = false)
 	// entendo que este não seja o relacionamento correto entretanto estou seguindo a aula
 	private Restaurante restaurante;

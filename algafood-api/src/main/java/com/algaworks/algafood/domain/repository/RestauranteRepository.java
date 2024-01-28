@@ -20,7 +20,9 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 	 * internamente o JPA/Hibernate constroi o comando SQL com base neste JPQL 
 	 */
 	@Override
-	@Query("from Restaurante r join r.cozinha left join fetch r.formasPagamento ") **** JPQL não está gerando o comando SQL com INNER JOIN em todas as tabelas, é como se ele não estivesse fazendo @override do método findAll()
+	@Query("from Restaurante r "+
+			" left outer join fetch r.cozinha "+
+			" left outer join fetch r.formasPagamento ")
 	List<Restaurante> findAll();
 	
 	List<Restaurante> queryByTaxaFreteBetween(Double taxaFreteInicial, Double taxaFreteFinal);

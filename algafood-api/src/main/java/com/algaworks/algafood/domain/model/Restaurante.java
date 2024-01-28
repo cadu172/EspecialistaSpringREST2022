@@ -67,6 +67,7 @@ public class Restaurante {
 	private Endereco endereco;
 	
 	@OneToMany(mappedBy = "restaurante")
+	//mappedBy recebe o nome da propriedade que está na tabela produto, por exemplo, este campo está fazendo referencia a propriedade produto.restaurante
 	private List<Produto> produtos = new ArrayList<Produto>();	
 	
 }

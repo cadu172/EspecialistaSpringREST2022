@@ -9,10 +9,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -50,20 +52,27 @@ public class Restaurante {
 	@Column(nullable = false, columnDefinition = "datetime") //indica que a coluna não deve ser nula e deve ser criado com data e hora sem precisão de segundos	
 	private LocalDateTime dataAtualizacao;
 	
-	@JsonIgnore
+	
 	/**
 	 *  Aqui usa estratégia Eager Loading ou seja...
 	 *  vai dar select na tabela cozinha independente se vai apresentar no JSON/XML @ManyToOne sempre faz o select
+	 *  
+	 *  fetch = FetchType.LAZY (Mesmo que o @ManyToOne faça as select forçando é possível usar esta diretiva para fazer o carregamento Lazy
+	 *  porém essa estratégia funciona somente em conjunto com o @JsonIgnore, sem isso vai gerar um exceção, então será 
+	 *  necessário usar @JsonIgnoreProperties(aqui você passa um array com as propriedades da "instância" que devem ser ignorados)
 	 */
-	@ManyToOne
+	//@JsonIgnore
+	@JsonIgnoreProperties({"hibernateLazyInitializer"}) //com.algaworks.algafood.domain.model.Cozinha$HibernateProxy$ilUKNkj6["hibernateLazyInitializer"]	
+	@ManyToOne(fetch = FetchType.LAZY) 
 	@JoinColumn(name = "cozinha_id", nullable = false) // anotação usada para definir qual a coluna da Entity restaurante deve ser a Foreign Key da tabela Cozinha
 	private Cozinha cozinha;
 	
-	@JsonIgnore
+	
 	/**
 	 *  Aqui usa estratégia Lazy Loading ou seja... 
 	 *  vai dar select na tabela forma_pagamento somente se a informação for apresentada no JSON/XML @ManyToMany só faz o select se precisar
 	 */
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "restaurante_forma_pagamento",
 		joinColumns = {@JoinColumn(name = "restaurante_id") },
@@ -74,10 +83,11 @@ public class Restaurante {
 	@Embedded // significa que o objeto endereço deve ser incorporado a classe como se fizesse parte dela
 	private Endereco endereco;
 	
-	@JsonIgnore
+	
 	/**
 	 * mappedBy recebe o nome da propriedade que está na tabela produto, por exemplo, este campo está fazendo referencia a propriedade produto.restaurante
 	 */
+	@JsonIgnore
 	@OneToMany(mappedBy = "restaurante")	
 	private List<Produto> produtos = new ArrayList<Produto>();	
 	
